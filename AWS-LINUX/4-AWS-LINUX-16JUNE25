@@ -1,0 +1,126 @@
+===============================================
+
+DATE: 16 JUNE 2025 
+
+vim fname 
+
+esc -- i    < insert mode > 
+
+   ----- data ----
+   ----- data ----
+   ----- data ----
+esc : w
+
+esc : q
+
+esc : wq!
+==================================================
+
+LINUX ---> VIM / NANO 
+VI/VIM EDITOR:
+
+gg - TOP LINE
+G - Ground 
+yy -- copy 
+n-yy - 
+p - paste 
+
+dd - delete a line 
+n-dd 
+
+u - undo 
+dw - delete word 
+
+----
+set nu
+set nonu 
+-------
+/madhu  (to search) 
+
+
+n --> next 
+=============================================
+
+diff file1 file2
+sdiff file1 file2
+==============
+
+
+touch 
+
+vim 
+
+create a file using touch , vim , echo 
+
+echo " docker k8s terraform jenkins " > file2  ( overwrite) 
+echo " aws linux git github " >> file2  ( append) 
+
+
+========================
+
+uptime 
+
+top 
+
+lscpu 
+
+free 
+free -m 
+free -g 
+
+==================================
+
+wget <link> 
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.106/bin/apache-tomcat-9.0.106.zip
+
+=================================
+
+zip 
+
+unzip apache-tomcat-9.0.106.zip
+
+zip -r name.zip <folder> 
+
+
+====================
+
+tar.gz
+
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.106/bin/apache-tomcat-9.0.106.tar.gz
+
+
+tar -xvf apache-tomcat-9.0.106.tar.gz
+
+tar -cvf name.tar.gz <folder> 
+
+===================================
+
+grep -i "madhu" jenkinsfile
+
+========
+
+find / -name <fname/dirname> 
+
+
+find / -name docker -type f
+find / -name docker -type 
+
+========================================================
+
+sed command --> sed 's/madhu/madhumadhu/' test > test2
+
+Replaces occurrences of a pattern with a specified replacement.
+Syntax: s/pattern/replacement/flags
+
+sed 's/madhu/kiran/' input.txt     # Replace first occurrence of 'madhu' with 'madhumadhu' in each line
+sed 's/madhu/kiran/g' input.txt    # Replace all occurrences of 'madhu' with 'madhumadhu' in each line
+sed 's/madhu/kiran/2' input.txt    # Replace the second occurrence of ''madhu' with 'madhumadhu' in each line
+
+
+sed 's/userstanga/madhustanga/' jenkins
+sed 's/userstanga/madhustanga/' jenkins  > jenkins2file
+
+
+sed 's/yum/apt/g' jenkins 
+
+========================================================

@@ -1,0 +1,979 @@
+
+ANSIBLE:
+
+1. INSTALL ANSIBLE ON CONTROL/ MASTER SERVER
+2. SETUP SSH PASSWORD LESS AUTHENTICATION TO ALL WORKER NODES / CLIENT SERVERS
+
+( WATCH CLASS RECORDING FOR DETAILED EXPLANATION- how to generate sshkeys.. etc  ) 
+
+=============================================================================================
+SETUP ANSIBLE PRATICE FOLDER AND CREATE A Inventory / host file  
+ 
+ 
+cd /opt/
+sudo vim inventory 
+ 
+[appservers]
+172.31.37.67
+#2.3.4.5
+
+[dbservers]
+172.31.35.163
+172.31.19.64
+
+[util]
+#1.2.3.4
+
++===================================================
+AD-HOC COMMANDS: 
+
+WITH LINUX : 
+
+  ansible -i /opt/inventory all -m ping
+  ansible -i /opt/inventory all -b -a "touch /opt/madhu"
+  ansible -i /opt/inventory all -b -a "mkdir /opt/kiran"
+  ansible -i /opt/inventory appservers -b -a "mkdir /opt/mc"
+  ansible -i /opt/inventory dbservers -b -a "mkdir /opt/mysqldb"
+  ansible -i /opt/inventory all -b -a "ls -lrth /opt"
+  ansible -i /opt/inventory 172.31.20.99 -b -a "touch /opt/node2"
+  ansible -i /opt/inventory all -b -a "ls -lrth /opt"
+  ansible -i /opt/inventory all -b -a "useradd madhu"
+  ansible -i /opt/inventory all -b -a "tail -3 /etc/passwd"
+  ansible -i /opt/inventory appservers -b -a "useradd mcuser"
+  ansible -i /opt/inventory dbservers -b -a "useradd dbuser"
+  ansible -i /opt/inventory all -b -a "tail -3 /etc/passwd"
+  ansible -i /opt/inventory all -b -a "userdel -r dbuser"
+  ansible -i /opt/inventory all -b -a "rm -rf /opt/madhu"
+  ansible -i /opt/inventory all -b -a "rm  /opt/madhu"
+  ansible -i /opt/inventory all -b -a "touch /opt/madhu"
+  ansible -i /opt/inventory all -b -a "mkdir /opt/madhu"
+  ansible -i /opt/inventory all -b -a "mkdir /opt/bach16"
+  ansible -i /opt/inventory all -b -a "useradd b16user"
+
+==============================================
+AD-HOC COMMANDS: 
+USING MODULES:
+
+Ansible modules are small programs that do specific tasks on remote machines — safely, automatically, and repeatedly without causing errors.
+
+1. Modules are Idempotent — Linux commands are NOT
+2. Modules understand system state — Linux commands don’t - Modules check before doing anything- Linux commands always   execute blindly.
+3. Modules return structured JSON data — Linux commands just print text
+4. Modules are safer — Linux commands may break the system
+
+
+
+ansible all -b -a "useradd mounika1"
+ansible all -m user -b -a "state=present name=mounika2 "
+
+ansible all -m copy -b -a "src=path/of/file dest=/path"
+
+ansible all -m yum -b -a "name=git"
+ansible all -m yum -b -a "name=git state=preasent"
+
+ansible all -a "yum install git -y" -b
+ansible all -b -a "yum install git -y"
+
+ansible all -m yum -b -a "name=git state=present"
+
+ansible all -m yum -b -a "name=git state=absent"
+
+ansible all -b -a "yum remove git -y"
+
+ansible all -m yum -b -a "name=httpd state=present"
+
+ansible all -m service -b -a "name=httpd state=started"
+
+ansible all -b -a "service httpd start"
+
+ansible devops -b -a "service httpd start"
+ansible all -m service -b -a "name=httpd state=started"
+Ex: reloaded, restarted, started, stopped
+
+
+ansible all -m yum -b -a "name=java state=latest"
+
+ansible all -b -a "useradd user1"
+
+ansible all -m user -b -a "name=alekhya state=present"
+
+ansible devops -b -a "userdel user1"
+
+ansible all -m user -b -a "name=alekhya state=absent"
+
+ansible all -b -a "mkdir /opt/ooooo1"
+
+ansible all -b -a "touch /opt/abc"
+
+/
+ansible all -m file -b -a "path=/opt/k8s state=touch"
+
+ansible all -m file -b -a "path=/opt/456dir state=directory"
+
+
+
+   ansible -i /opt/inventory all -b -m user -a "name=user16 state=present"
+   ansible -i /opt/inventory  -m ping all
+   ansible -i /opt/inventory all -b -m file -a "name=/opt/jenkinsfile state=touch"
+   ansible -i /opt/inventory all -b -m file -a "name=/opt/jenkinsfile state=dir"
+   ansible -i /opt/inventory all -b -m file -a "name=/opt/jenkinsdir state=diretory"
+   ansible -i /opt/inventory all -b -m file -a "name=/opt/jenkinsdir state=directory"
+   ansible -i /opt/inventory all -b -m file -a "name=/opt/jenkinsdir state=absent"
+   ansible -i /opt/inventory appservers -b -m yum -a "name=git state=present"
+   ansible -i /opt/inventory all -b -m yum -a "name=git state=present"
+   ansible -i /opt/inventory all -b -m yum -a "name=httpd state=prent"
+   ansible -i /opt/inventory all -b -m yum -a "name=httpd state=present"
+   ansible -i /opt/inventory all -b -m service -a "name=httpd state=start"
+   ansible -i /opt/inventory all -b -m service -a "name=httpd state=started"
+   ansible -i /opt/inventory all -b -m copy -a "src= /opt/index.html  dest=/var/www/html/index.html"
+   ansible -i /opt/inventory all -b -m copy -a "src=/opt/index.html  dest=/var/www/html/index.html"
+  sudo vim index.html
+  ansible -i /opt/inventory all -b -m copy -a "src=/opt/index.html  dest=/var/www/html/index.html"
+==============================================
+ansible -i /opt/inventory all -b -m yum -a "name=httpd state=absent"
+ansible -i /opt/inventory all -b -m service -a "name=httpd state=started"
+ansible -i /opt/inventory all -b -m copy -a "src= /opt/index.html  dest=/var/www/html/index.html"
+======================
+
+
+PLAYBOOK: 
+An Ansible Playbook is a set of instructions written in YAML that tells Ansible what tasks to run on which servers.
+
+A playbook consists of playa, and a play consists of tasks.
+
+It uses configuration files called Playbooks written in YAML. 
+
+Ansible modules are standalone scripts that can be used inside an Ansible playbook. . 
+
+yaml - one of the data structure format to represent data .
+       yaml file is used to represent data , in our case ansible configuration data
+
+for ex : 
+
+server details :
+
+name = mcserver1
+owner = Madhu
+created = 14 Nov 25
+status = active 
+
+----
+name = mcserver2
+owner = Kiran 
+created = 14 Nov 25
+status = active 
+=========
+
+servers:
+
+  - name: mcserver1    
+    created: "14 Nov 25"
+    status: active
+	owner: Madhu
+	
+  - name: mcserver2
+    owner: Kiran
+	status: active
+    created: "14 Nov 25"
+=========================
+
+iff b/w  XML  VS JSON VS YAML FORMATS :
+
+-----------------------------------
+ways to Representation of Data in YAML :
+
+-------------
+key-value pair 
+
+name = mcserver1
+owner = madhu
+
+name: mcserver1
+owner: madhu
+-------------------
+Array/ List - 
+
+- java 
+- c 
+- go 
+
+Fruits:
+
+- apple
+- grape 
+- banana
+- Orange:   
+   Calories: 50
+   Fat: 0.1 g
+   Carbs: 5g
+
+-------------------
+
+Dictionary - Set of properties , grouped together
+
+Orange:   
+   Calories: 50
+   Carbs: 5g
+   Fat: 0.1 g
+   
+   
+make sure we are giving spaces properly 
+ - equal no of spaces 
+===========
+What is gathering facts?
+
+Automatic collection of system information before running tasks.
+Facts" are pieces of information Ansible collects about the managed host, such as:
+
+OS version
+IP addresses
+Hostname
+CPU, RAM
+Network interfaces
+Python path
+Distribution family (RedHat, Debian, etc.)
+Kernel version
+
+==============================
+ cat /opt/playbooks/playbook1.yaml
+
+
+---
+- name: Setup git,httpd,start service and deploy code
+  become: yes
+  hosts: all
+
+  tasks:
+    - name: Install Git #ansible -i /opt/inventory all -b -m yum -a "name=git state=present"
+      yum:
+        name: git
+        state: present
+
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: httpd service start
+      service:
+        name: httpd
+        state: started
+      tags: service_httpd
+
+    - name: httpd service status
+      shell: systemctl status httpd
+      register: output_status
+      tags: service_httpd
+
+    - name: Display httpd service start
+      debug:
+        var: output_status.stdout
+      tags: service_httpd
+
+
+    - name: deploying index.html code
+      copy:
+        src: /opt/index.html
+        dest: /var/www/html/index.html
+      tags: code_copy
+
+=======================================================================================
+
+DATE: 15 NOV 25
+
+
+1.  HOW TO DO CONF AUTOMATION ON  MASTERSERVER IN ANSBLE CONTROL 
+
+
+
+2. TEMPLATE MODULE 
+   Jinja2 templating syntax 
+
+3. JENKINS SETUP 
+
+jenkins setup 
+
+
+sudo yum update –y
+sudo wget -O /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+sudo yum install java-21-amazon-corretto -y
+sudo yum install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+
+
+vim jenkinsetup.yaml 
+
+---
+- name: Install Jenkins on RHEL/Amazon Linux
+  hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Download Jenkins repo file
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+        mode: '0644'
+
+    - name: Import Jenkins GPG key
+      rpm_key:
+        state: present
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+    - name: Upgrade packages after adding repo
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Install Amazon Corretto Java 21
+      yum:
+        name: java-21-amazon-corretto
+        state: present
+
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+
+    - name: Enable Jenkins service
+      systemd:
+        name: jenkins
+        enabled: yes
+
+    - name: Start Jenkins service
+      systemd:
+        name: jenkins
+        state: started
+
+============================================
+4. TOMCAT SETUP 
+
+#SCRIPT FOR TOMCAT
+ 
+ 
+#!/bin/bash
+
+sudo yum install java -y
+cd /opt
+sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.109/bin/apache-tomcat-9.0.109.tar.gz
+sudo tar -xvf /opt/apache-tomcat-9.0.109.tar.gz
+
+cd /opt/apache-tomcat-9.0.109/webapps/manager/META-INF
+sudo sed -i 's/"127\\.\\d+\\.\\d+\\.\\d+|::1|0:0:0:0:0:0:0:1"/".*"/g' context.xml
+
+cd /opt/apache-tomcat-9.0.109/conf
+sudo mv tomcat-users.xml tomcat-users_bkup_11sep25.xml
+sudo touch tomcat-users.xml
+sudo echo '<?xml version="1.0" encoding="utf-8"?>
+        <tomcat-users>
+        <role rolename="manager-gui"/>
+        <user username="tomcat" password="tomcat" roles="manager-gui, manager-script, manager-status"/>
+        </tomcat-users>' > tomcat-users.xml
+
+cd /opt/apache-tomcat-9.0.109/conf/
+sudo sed -i 's/Connector port="8080"/Connector port="8081"/g' server.xml
+sudo /opt/apache-tomcat-9.0.109/bin/startup.sh
+
+=======================
+
+vim tomcatsetup.yaml
+
+---
+- name: Install and configure Apache Tomcat 9
+  hosts: all
+  become: yes
+
+  vars:
+    tomcat_version: "9.0.109"
+    tomcat_dir: "/opt/apache-tomcat-9.0.109"
+    tomcat_tar: "apache-tomcat-9.0.109.tar.gz"
+    tomcat_url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.109/bin/apache-tomcat-9.0.109.tar.gz"
+
+  tasks:
+    - name: Install Java
+      yum:
+        name: java
+        state: present
+
+    - name: Download Apache Tomcat tarball
+      get_url:
+        url: "{{ tomcat_url }}"
+        dest: "/opt/{{ tomcat_tar }}"
+        mode: '0644'
+
+    - name: Extract Tomcat archive
+      unarchive:
+        src: "/opt/{{ tomcat_tar }}"
+        dest: "/opt"
+        remote_src: yes
+
+    - name: Update context.xml to allow all IPs
+      replace:
+        path: "{{ tomcat_dir }}/webapps/manager/META-INF/context.xml"
+        regexp: '"127\\.\d+\\.\d+\\.\d+|::1|0:0:0:0:0:0:0:1"' 
+        replace: '".*"'
+
+    - name: Backup original tomcat-users.xml
+      command: mv tomcat-users.xml tomcat-users_bkup_11sep25.xml
+      args:
+        chdir: "{{ tomcat_dir }}/conf"
+      ignore_errors: yes
+
+    - name: Create new tomcat-users.xml
+      copy:
+        dest: "{{ tomcat_dir }}/conf/tomcat-users.xml"
+        content: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <tomcat-users>
+            <role rolename="manager-gui"/>
+            <user username="tomcat" password="tomcat" roles="manager-gui, manager-script, manager-status"/>
+          </tomcat-users>
+        mode: '0644'
+
+    - name: Change Tomcat port from 8080 to 8081
+      replace:
+        path: "{{ tomcat_dir }}/conf/server.xml"
+        regexp: 'Connector port="8080"'
+        replace: 'Connector port="8081"'
+
+    - name: Start Tomcat
+      shell: "{{ tomcat_dir }}/bin/startup.sh"
+
+=========================================================================
+
+sudo vim play.yml
+-------------------------------
+
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Installing no.of package
+    yum: 
+	  name: git
+	  state: present
+	
+
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Installing no.of package
+    yum: name=git,httpd,wget,java state=present
+
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: removinfg  no.of package
+    yum: name=git,httpd,wget,java  state=absent  
+
+or
+
+sudo vim play.yml
+-------------------------------
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Installing no.of packages
+    yum: state=present name={{item}}
+    with_items:
+    - git
+    - httpd
+    - wget
+	- java
+	- xyx 
+	- abc 
+
+---------------------
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install necessary packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - httpd
+        - wget
+        - java
+        - xyz
+        - abc
+      tags:
+        - install_packages
+
+###    
+{{ item }} is a special kind of variable used in loops in Ansible.
+
+
+
+========================================================================================
+DATE: 18 NOV 25 
+
+ANSIBLE VARIABLES :
+
+
+JENKINS WITH basic variables: 
+
+ cat 1-jenkins_vars.yaml
+---
+- name: Install Jenkins on RHEL/Amazon Linux
+  hosts: all
+  become: yes
+
+  vars:
+    jenkins_repo: "https://pkg.jenkins.io/redhat-stable/jenkins.repo"
+    jenkins_gpgkey: "https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key"
+
+
+  tasks:
+
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Download Jenkins repo file
+      get_url:
+        url: "{{ jenkins_repo }}"
+        dest: /etc/yum.repos.d/jenkins.repo
+        mode: '0644'
+
+    - name: Import Jenkins GPG key
+      rpm_key:
+        state: present
+        key: "{{ jenkins_gpgkey }}"
+
+    - name: Upgrade packages after adding repo
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Install Amazon Corretto Java 21
+      yum:
+        name: java-21-amazon-corretto
+        state: present
+
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+
+    - name: Enable Jenkins service
+      systemd:
+        name: jenkins
+        enabled: yes
+
+
+=======================================
+ANSIBLE HANDLERS 
+
+Handlers are tasks that only run when notified.
+
+Handlers are meant to run only when a change impacts the running service.
+
+Only notify a handler when your change requires that service to restart.
+
+
+cat 2-httpd_handlers.yaml
+---
+- name: Setup git,httpd,start service and deploy code
+  become: yes
+  hosts: all
+
+  tasks:
+
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: httpd service start
+      service:
+        name: httpd
+        state: started
+      tags: service_httpd
+
+    - name: deploying index.html code
+      copy:
+        src: /opt/index.html
+        dest: /var/www/html/index.html
+      tags: code_copy
+      notify:
+         - httpd service restart
+
+
+  handlers:
+
+    - name: httpd service restart
+      service:
+        name: httpd
+        state: restarted
+      tags: service_httpd
+
+
+=================================================================
+
+
+JENKINS SETUP - PROD GRADE WITH VARS , HANDLERS with WHEN CONDITION 
+
+ cat 3-jenkins_prod.yaml
+---
+- name: Install and configure Jenkins (RHEL / Amazon Linux)
+  hosts: all
+  become: true
+
+  vars:
+    # Jenkins repo & keys
+    jenkins_repo_url: "https://pkg.jenkins.io/redhat-stable/jenkins.repo"
+    jenkins_gpg_key_url: "https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key"
+
+    # Packages & service
+    java_package: "java-21-amazon-corretto"
+    jenkins_package: "jenkins"
+    jenkins_service: "jenkins"
+    jenkins_port: 8080
+
+    # Backup & restore
+    jenkins_home: "/var/lib/jenkins"
+    jenkins_backup_dir: "/opt/jenkins_backup"
+    enable_backup: true
+    enable_restore: false
+    backup_filename: "jenkins_backup_{{ ansible_date_time.date }}.tar.gz"
+
+    # Template (optional)
+    jenkins_sysconfig_src: "jenkins.j2"
+    jenkins_sysconfig_dest: "/etc/sysconfig/jenkins"
+
+  tasks:
+
+    # ------------------------------
+    # Setup Repos & Packages
+    # ------------------------------
+
+    - name: Download Jenkins repo file
+      get_url:
+        url: "{{ jenkins_repo_url }}"
+        dest: /etc/yum.repos.d/jenkins.repo
+        mode: '0644'
+      notify: Reload repo cache
+
+    - name: Import Jenkins GPG key
+      rpm_key:
+        state: present
+        key: "{{ jenkins_gpg_key_url }}"
+
+    - name: Install Java
+      yum:
+        name: "{{ java_package }}"
+        state: present
+
+    - name: Install / upgrade Jenkins
+      yum:
+        name: "{{ jenkins_package }}"
+        state: latest
+      register: jenkins_install
+      notify: Restart Jenkins
+
+    # - name: Deploy Jenkins sysconfig template
+      # template:
+      #   src: "{{ jenkins_sysconfig_src }}"
+      #   dest: "{{ jenkins_sysconfig_dest }}"
+      # register: sysconfig_template
+      # notify: Restart Jenkins
+
+    - name: Enable and start Jenkins service
+      systemd:
+        name: "{{ jenkins_service }}"
+        enabled: yes
+        state: started
+
+    # ------------------------------
+    # Backup & Optional Restore
+    # ------------------------------
+
+    - name: Ensure backup directory exists
+      when: enable_backup
+      file:
+        path: "{{ jenkins_backup_dir }}"    #"/opt/jenkins_backup"
+        state: directory
+
+    - name: Backup Jenkins home directory
+      when: enable_backup
+      archive:
+        path: "{{ jenkins_home }}"
+        dest: "{{ jenkins_backup_dir }}/{{ backup_filename }}"
+        format: gz
+
+    - name: Restore Jenkins home directory (manual trigger only)
+      when: enable_restore
+      unarchive:
+        src: "{{ jenkins_backup_dir }}/{{ backup_filename }}"
+        dest: "{{ jenkins_home }}"
+        remote_src: yes
+      notify: Restart Jenkins
+
+    # ------------------------------
+    # FIREWALL DETECTION (COMMENTED OUT)
+    # ------------------------------
+
+    # - name: Detect if firewalld is installed
+    #   stat:
+    #     path: /usr/sbin/firewalld
+    #   register: firewalld_binary
+
+    # - name: Detect if firewalld is running
+    #   command: systemctl is-active firewalld
+    #   register: firewalld_status
+    #   failed_when: false
+    #   changed_when: false
+    #   when: firewalld_binary.stat.exists
+
+    # - name: Open Jenkins port {{ jenkins_port }} in firewalld (only if installed & running)
+    #   firewalld:
+    #     port: "{{ jenkins_port }}/tcp"
+    #     permanent: yes
+    #     state: enabled
+    #     immediate: yes
+    #   when:
+    #     - firewalld_binary.stat.exists
+    #     - firewalld_status.stdout == "active"
+
+    # NOTE:
+    # Above firewall logic safely checks:
+    # ✔ firewalld exists
+    # ✔ firewalld is running
+    # ✔ Then opens port 8080 (only when needed)
+    # All commented out for now.
+
+    # ------------------------------
+    # Health Checks
+    # ------------------------------
+
+    - name: Wait for Jenkins port to be open
+      wait_for:
+        host: 127.0.0.1
+        port: "{{ jenkins_port }}"
+        timeout: 60
+        state: started
+
+    - name: Verify Jenkins API endpoint is responding
+      uri:
+        url: "http://127.0.0.1:{{ jenkins_port }}/api/json"
+        status_code: [200 ,403]
+        return_content: yes
+      register: jenkins_api
+      retries: 5
+      delay: 5
+      until: jenkins_api.status in [ 200, 403 ]
+
+    - name: Display Jenkins health check response
+      debug:
+        msg: "Jenkins API responded successfully."
+
+    # ------------------------------
+    # Show initial admin password
+    # ------------------------------
+
+    - name: Read initial admin password
+      slurp:
+        src: /var/lib/jenkins/secrets/initialAdminPassword
+      register: admin_pw
+      ignore_errors: yes
+
+    - name: Show decoded initial admin password
+      when: admin_pw.content is defined
+      debug:
+        msg: "Initial Admin Password: {{ admin_pw.content | b64decode }}"
+
+  # ------------------------------
+  # HANDLERS
+  # ------------------------------
+
+  handlers:
+    - name: Reload repo cache
+      yum:
+        update_cache: yes
+
+    - name: Restart Jenkins
+      systemd:
+        name: "{{ jenkins_service }}"
+        state: restarted
+
+
+======================================================
+
+ANSIBLE ROLES :
+
+your_role_name/
+├── defaults/
+│   └── main.yml          # Default variables (lowest priority)
+├── vars/
+│   └── main.yml          # Variables with higher priority
+├── files/
+│   └── ...               # Static files to copy (e.g., config files, packages)
+├── templates/
+│   └── ...               # Jinja2 templates (e.g., .j2 files)
+├── tasks/
+│   └── main.yml          # Main list of tasks to run
+├── handlers/
+│   └── main.yml          # Handlers triggered by tasks (e.g., service restart)
+├── meta/
+│   └── main.yml          # Role metadata (dependencies, author info)
+├── README.md             # Documentation (optional but recommended)
+└── tests/
+    └── test.yml          # Test playbook to verify role
+
+
+=============
+
+WHY ANSIBLE ROLES ??
+
+Modularization	
+        Breaks down playbooks into smaller, reusable, and independent units of configuration.
+		
+Reusability	
+          Roles can be reused across different playbooks or projects, reducing duplication.
+		  
+Maintainability	
+         Makes it easier to maintain and update configurations by organizing them into distinct sections.
+		 
+Scalability	
+            Helps manage complex systems and scale automation as infrastructure grows.
+Collaboration	
+          Provides a clear structure that improves team collaboration by dividing tasks into specific roles.
+
+
+
+==============================================
+
+ROLES:
+
+sudo ansible-galaxy init <rolename>
+
+sudo ansible-galaxy init httpdrole
+sudo ansible-galaxy init jenkinsrole
+sudo ansible-galaxy init xyzrole
+sudo ansible-galaxy init abcrole
+
+cat rolespractice/mainplaybook.yaml
+
+---
+- hosts: all
+  become: yes
+  roles:
+    - httpdrole
+    - jenkinsrole
+    - xyzrole
+    - abcrole
+
+	
+
+============================================
+DATE: 19 NOV 25
+============================================
+What Is Dynamic Inventory?
+
+A Dynamic Inventory is one where Ansible gets host information from a script, program, or plugin at runtime, instead of a fixed static inventory file.
+
+       Dynamic inventory fetches hosts directly from AWS
+       No need to manually update inventory files
+       Grouping is automatic based on EC2 tags
+       Works perfectly for cloud automation and scaling 
+
+Examples of sources:
+
+   Python scripts you write   
+   JSON/YAML files generated automatically   
+   Cloud provider APIs   
+   Inventory plugins (e.g., ini, yaml, script, constructed, aws_ec2, openstack, etc.)
+   
+  
+
+
+  
+steps:  
+
+
+1 INSTALL ansible &  AWS COLLECTION
+
+
+yum install ansible -y 
+ansible-galaxy collection install amazon.aws
+
+      This installs the official AWS modules and inventory plugins, including:      
+      aws_ec2 dynamic inventory plugin      
+      ec2_instance module      
+      ec2_security_group module     
+      many other AWS automation tools
+
+
+1. sudo yum install python3-boto3 python3-botocore -y
+
+    Boto3 is required because Ansible uses it to talk to AWS APIs.
+	
+2. Configure AWS credentials - This allows Ansible to access AWS.
+   
+   [ec2-user@master opt]$ aws configure
+AWS Access Key ID [None]: AKIXXXXX
+AWS Secret Access Key [None]: zJvEN2EzXXXXXXXXXXXXXXX
+Default region name [None]: us-east-1
+Default output format [None]:
+[ec2-user@master opt]$
+
+   
+3. mkdir -p /opt/aws_inventory
+   cd /opt/aws_inventory
+
+   vim aws_ec2.yml
+
+            plugin: aws_ec2
+            regions:
+              - us-east-1
+            filters:
+              instance-state-name: running
+            hostnames:
+              - private-ip-address
+            compose:
+              ansible_host: private_ip_address
+            keyed_groups:
+              - key: tags.Name
+                prefix: ""
+                separator: ""
+            
+
+
+4. TEST DYNAMIC INVENTORY:
+
+ansible-inventory -i /opt/aws_inventory/aws_ec2.yml --graph
+
+ansible-inventory -i /opt/aws_inventory/aws_ec2.yml --list
+
+
+5. 
+ansible all -i /opt/aws_inventory/aws_ec2.yml -u ec2-user --private-key ~/.ssh/mykey.pem -m ping
+
+
+ansible -i /opt/aws_inventory/aws_ec2.yml all -m ping all 
+
+ansible all -i /opt/aws_inventory/aws_ec2.yml -u ec2-user --private-key ~/.ssh/b16ansible.pem -m ping
+
+
+=============================================================================
+
+QUIZ : 
+
+

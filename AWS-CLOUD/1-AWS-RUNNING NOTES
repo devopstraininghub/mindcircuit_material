@@ -1,0 +1,712 @@
+
+AWS-3JULY25:
+=====================
+
+BASIC LINUX COMMANDS:
+
+ls 
+ll
+ls -lrth 
+ls -la 
+---------------------------
+touch  chiru
+mkdir dirname 
+--------------------
+sudo su - 
+hostnamectl set-hostname <ser.name> 
+clear 
+
+ctrl + c 
+=================================
+
+
+AWS ACCOUNT 
+
+REGION 
+AVAILABILITY ZONE 
+SERVER. CREATION
+SSH - GIT BASH 
+
+SERVER CONNECT USING GIT BASH 
+
+EBS (Elastic Block Store)  
+
+lsblk 
+df -Th
+Block volume  
+snapshot 
+
+========================
+Server1:
+mkfs.ext4 /dev/xvdf
+mkdir /madhu
+mount -t ext4 /dev/xvdf /madhu
+
+
+server2:
+mkdir /kiran
+mount -t ext4 /dev/xvdf /kiran
+
+===============================
+
+4 JULY 2025:
+
+================================================
+
+BASIC LINUX COMMANDS:
+
+ls 
+ll
+ls -lrth 
+ls -la 
+---------------------------
+touch  chiru
+mkdir dirname 
+rm -rf <fnmae/dirname>
+cd <dirname>
+
+
+pwd
+widnows -- notepad ++ 
+linux --> vi/vim editor 
+=================================
+vim fname 
+
+esc - i   (insertmode) 
+
+----
+data
+----
+
+esc :wq!
+=================================
+cat fname
+
+yum install pkg.Name
+
+
+CUSTOM AMI : 
+---------
+DATA 
+PACKAGES 
+SERVICES 
+
+=========================================
+LAUNCH TEMPLATE 
+
+
+=============================================================
+
+
+
+
+AWS ELB : 
+
+
+====================
+
+AWS USER DATA 
+
+=====================
+
+AWS SNS SERVICE 
+
+==========================================================================================
+
+AWS AUTOSCALING 
+
+MIN CAPACITY 
+MAX CAPCITY 
+DESIRED CAPACITY 
+
+& TARGET TRACKING POLICY ON AVG CPU UTILIZATION 
+
+
+==========================================================================================
+DATE: 9 JULY 
+
+
+PUBLIC CLOUD VS PVT CLD
+
+VPC ( VIRUTAL PRIVATE CLOUD ) 
+
+===============================================================
+ VPC 
+
+CIDR BLOCK & HOW IT WORKS 
+
+10 .81. 0. 0 / 16
+
+IPV4 -- > 4 bytes 
+
+1 byte - 8 bits  
+4 bytes --> 8 * 4 --> 32 bits 
+
+10 .81. 0. 0  ---> 32 bits  (ipv4) 
+
+8   8  8  8 
+
+===================================
+10.81.0.0/16
+
+10.81.0.0 
+10.81.0.1
+10.81.0.2
+10.81.0.3 ........10.81.0.255
+
+
+10.81.1.0/24
+
+10.81.1.0
+10.81.1.1
+10.81.1.2
+10.81.1.3 ..........10.81.1.255
+
+
+10.81.2.0/24
+
+
+10.81.2.0
+10.81.2.1
+10.81.2.2
+10.81.2.3
+10.81.2.4 .........10.81.2.255
+
+----
+---
+
+10.81.255.0
+10.81.255.1
+10.81.255.2
+10.81.255.3   ....... 10.81.255.255
+
+256 * 256 ---> 65536
+
+0.0.0.0/0
+
+==========================================================
+
+10 JULY 2025:
+
+VPC PEERING 
+SECURITY GROUPS 
+   -- INBOUND 
+   -- OUTBOUND 
+
+====================================================================
+
+=====================================================
+date: 11 july 25
+
+
+USERDATA: 
+
+#!/bin/bash
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+echo "WELCOME TO AWS DEVOPS traininghub from $(hostname) SERVER" > /var/www/html/index.html
+
+====================================================
+
+SG  at Instance level 
+
+INBOUND VS OUTBOUND 
+
+SG ---> Stateful 
+       - only Allow 
+       - 
+====================================================
+NACL at subnet level 
+
+           - Stateless 
+           - Both Allow & Deny 
+           - Numers ( least number will get high priority ) 
+
+====================================================
+NIC : 
+
+
+====================================================
+EIP : STATIC IP & fixed IP 
+
+3.84.252.151
+
+44.203.173.137  -serv2
+
+3.91.239.80
+
+====================================================
+MINI PROJECT : 
+
+
+================================================
+
+efs: (SHARED FILE SYSTEM) 
+
+Creating efs and mounting on to servers . 
+
+SERVER 1: 
+
+yum install amazon-efs-utils -y  
+mkdir /efs
+sudo mount -t efs -o tls fs-058c8d83d806f2991:/ /efs
+
+-----------------
+SERVER2: 
+yum install amazon-efs-utils -y  
+mkdir /madhu
+sudo mount -t efs -o tls fs-058c8d83d806f2991:/ /madhu
+====================================================
+
+IAM USER 
+
+IAM POLICIES : 
+
+   -- effect : Alow / deny
+      action:  
+      resource : 
+
+
+   
+IAM :
+
+https://141559732042.signin.aws.amazon.com/console
+
+ramani :
+
+https://141559732042.signin.aws.amazon.com/console
+
+
+admin acces 
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+		    "Action": "*",
+	            "Resource": "*"
+                    "Effect": "Allow",
+            
+            
+        }
+    ]
+}
+
+=====================
+IAM GROUP 
+
+=========================================
+
+S3 -- SSS  - SIMPLE STORAGE SERVICE - BACKUP 
+
+====
+
+What is Amazon S3?
+Amazon Simple Storage Service (S3) is a highly durable and scalable object storage service provided by AWS.
+
+Designed for storing and retrieving any amount of data at any time from anywhere.
+
+
+price: size (how much data you store)  , duration , storage class , which region 
+
+S3 BUCKET 
+OBJECT 
+giving ACCESS TO S3 object using- ACL 
+S3 --> HOSTING STATIC WEBSITE 
+
+STORAGE CLASSES  
+S3 LIFE CYCLE MANAGEMENT 
+
+==============================================================
+
+AWS CLI :
+
+aws --verion 
+
+aws configure 
+
+XXXXXXXC5FA6Z4OURW
+XXXXXXXXXXXXXXXGVmD/b+GVgikXXXXXXXXX
+
+aws s3 cp /path/to/local/logs/ s3://your-log-bucket/logs/ --recursive
+
+aws s3 cp s3://your-data-bucket/images/ /path/to/local/images/ --recursive
+
+aws s3 sync /path/to/local/website/ s3://your-website-bucket/
+
+aws s3 rb s3://your-website-bucket/
+
+aws s3 rm 
+
+==============================================================
+aws ec2 run-instances \
+  --image-id ami-0150ccaf51ab55a51 \
+  --count 1 \
+  --instance-type t2.micro \
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=MyEC2Instance}]'
+
+
+
+==============================================================
+
+
+IAM ROLES :
+
+- Temporary identity that can be assumed by users, services, or accounts
+- Needs to be assumed by a trusted entity
+
+ Scenario: EC2 Instance accessing S3 bucket
+
+====================================================================
+
+
+RDS :
+
+DATABASE SERVICES IN AWS :
+
+
+------
+Structured databases, also known as relational databases, store data in predefined schemas, usually in tables with rows and columns. 
+
+These databases are characterized by their structured approach to storing and querying data, which involves predefined schemas and the use of SQL (Structured Query Language) to manage and manipulate the data.
+
+
+Here are some examples:
+
+MySQL:
+    A widely-used open-source relational database management system (RDBMS) known for its speed, reliability, and ease of use. It's often used for web applications and supports SQL for querying data.
+
+PostgreSQL:
+    An advanced open-source RDBMS known for its robustness, extensibility, and compliance with SQL standards. It supports complex queries, foreign keys, triggers, and transactions.
+
+Microsoft SQL Server: 
+    A relational database management system developed by Microsoft. It's widely used in enterprise environments and integrates well with other Microsoft products like Azure, .NET, and Power BI.
+
+Oracle Database: 
+    A multi-model database management system produced by Oracle Corporation. It's known for its strong performance, scalability, and advanced features, making it popular in enterprise environments.
+
+IBM Db2: 
+    An RDBMS developed by IBM that is optimized for handling large volumes of data and complex queries. It supports a wide range of data types and is used in various industries, including finance and healthcare.
+
+SQLite: 
+    A lightweight, self-contained RDBMS that is embedded within applications. It's widely used in mobile applications, small desktop apps, and even some larger-scale web applications.
+
+----------------------
+
+Semi-structured databases store data that doesn't conform to a rigid schema like relational databases but still contains some organizational properties (such as tags or metadata) that make it easier to analyze. 
+
+These databases are designed to handle data that doesn't fit neatly into the tables and columns of traditional relational databases, offering flexibility in how data is stored and queried.
+
+Here are some examples of semi-structured databases:
+
+
+MongoDB: 
+   A NoSQL database that stores data in flexible, JSON-like documents. MongoDB allows for dynamic schema design, meaning fields can vary from document to document, which is ideal for applications with changing data requirements.
+
+Apache Cassandra:
+    A distributed NoSQL database designed to handle large amounts of data across many commodity servers. It uses a table-based structure but allows for varying column counts and types across rows, providing a level of flexibility not found in traditional relational databases.
+
+Amazon DynamoDB: 
+   A fully managed NoSQL database service provided by AWS. It stores data in a key-value format and is designed to scale horizontally with automatic partitioning and replication.
+
+Google Cloud Datastore: 
+    A NoSQL document database built for automatic scaling, high performance, and ease of application development. It is designed to support semi-structured data with nested fields and arrays.
+
+OrientDB: 
+    A multi-model database that supports graph, document, object, and key-value models. It can store semi-structured data with varying schema structures and relationships between data entities.
+
+----------------------
+
+Unstructured data, often referred to as NoSQL databases, are designed to handle data that doesn't fit into a predefined schema or structure. This type of data includes text, images, videos, and other forms of content that don't conform to the traditional tabular format. 
+
+
+Here are some examples:
+
+Elasticsearch:
+    A distributed search and analytics engine that excels at indexing and searching large volumes of unstructured data, such as logs, documents, and textual content. It's commonly used for full-text search, log analysis, and real-time data exploration.
+
+Apache Hadoop: 
+     A framework that allows for the distributed processing of large data sets across clusters of computers. It’s often used for storing and processing unstructured data, like large text files, images, and videos, using its Hadoop Distributed File System (HDFS).
+
+Apache Solr:
+     A search platform built on Apache Lucene, designed for searching large volumes of unstructured text data. Solr is often used in applications that require full-text search, faceted search, and real-time indexing.
+
+Amazon S3 (Simple Storage Service): 
+     While not a database in the traditional sense, S3 is a scalable object storage service that allows you to store and retrieve any amount of data, including unstructured data like images, videos, and backups.
+
+Microsoft Azure Blob Storage: 
+       Similar to Amazon S3, Azure Blob Storage is designed to store large amounts of unstructured data, such as text or binary data. It's commonly used for serving images, documents, and media files to users.
+
+Cassandra with Blob Data: 
+      Apache Cassandra is primarily a semi-structured database, but it can also store unstructured data in the form of blobs (binary large objects), making it possible to store and retrieve files like images, videos, and audio directly from the database.
+
+These tools and platforms are optimized for handling and processing data that doesn't have a clear structure or predefined schema, making them ideal for applications involving large, varied, and unstructured data sets.
+
+
+=========================================
+DATE: 24 JULY 25 
+
+---------------
+mc-prod-mysql-instance.cela4qmqgtmv.us-east-1.rds.amazonaws.com
+
+admin 
+Fii3cPuW<LEMm6-o!CLo|MO3_8E?                                  >
+
+
+
+ mysql work bench 
+ 
+ sqlectron 
+ 
+
+=============================
+
+mysql -h your-rds-endpoint.amazonaws.com -u yourusername -p
+
+=================================
+
+SHOW DATABASES;  - to view all available databases:
+
+USE database_name;
+SELECT DATABASE();
+
+
+CREATE TABLE employees (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,  -- Employee ID, auto-incremented
+    first_name VARCHAR(50),                      -- First Name
+    last_name VARCHAR(50)                        -- Last Name
+);
+
+
+
+
+
+=======
+
+SHOW DATABASES;
+USE facebook;
+SELECT DATABASE();
+
+CREATE TABLE employees (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,  -- Employee ID, auto-incremented
+    first_name VARCHAR(50),                      -- First Name
+    last_name VARCHAR(50)                        -- Last Name
+);
+
+INSERT INTO employees (first_name, last_name)
+VALUES ('MADHU', 'KIRAN');
+
+INSERT INTO employees (first_name, last_name)
+VALUES ('x', 'y');
+
+INSERT INTO employees (first_name, last_name)
+VALUES ('a', 'b');
+
+===========
+
+SELECT * FROM employees;
+
+SELECT first_name, last_name FROM employees;
+
+UPDATE employees
+SET last_name = 'Gorekar'
+WHERE employee_id = 2;
+
+
+DELETE FROM employees
+WHERE employee_id = 3;
+
+
+==============
+Create: INSERT INTO employees
+
+Read: SELECT * FROM employees
+
+Update: UPDATE employees SET column_name = value WHERE condition
+
+Delete: DELETE FROM employees WHERE condition
+
+
+====================================
+
+CLOUD MODEL CLASSIFICATION 
+
+
+IAAS 
+
+PAAS 
+
+SAAS 
+
+========================
+
+DATE : 29 JULY 25 
+
+ROUTE 53 -- DNS AS A SERVICE BY AWS 
+
+GODADDY --> PURCHASE DOMAIN ------> b16facebook.xyz 
+
+HOST IN AWS USING ROUTE53 SERVICE 
+
+UPDAATE NS RECORDS IN IN GODADDY , LET IT PROPEGATE ( TAKES TIME --- CHECK DNS CHECKER) 
+
+THEN LAUNCH LOAD BALANCER 
+
+THEN CREATE RECORDS IN ROTUE 53 ( A RECORD , CNAME RECORD ...etc ) 
+
+and access in web browser --> http://b16facebook.xyz/
+
+-------------------------------------------
+
+HOW TO MAKE IT SECURE ??
+
+CREATE A CERTIFICATE IN AWS ACM ( CERTIFICATE MANAGER ) 
+
+UPDATE AWS LOADBALANCER LISTENER RULES ( HTTPS -- 443 ) 
+
+then try to access in web browser with https  ----------->  https://b16facebook.xyz/
+
+-----------------------------------------------
+
+
+CLOUD FRONT : 
+
+Amazon CloudFront is a content delivery network (CDN) service provided by AWS (Amazon Web Services). It securely delivers content (like web pages, images, videos, APIs, and software) to users around the world with low latency and high transfer speeds.
+
+- Global Network of Edge Locations:
+
+- Caching Static & Dynamic Content:
+
+- Origin Sources:
+
+   Elastic Load Balancers , S3 BUCKET , Custom HTTP servers (on-prem or in the cloud) , EC2 instances
+
+HOW IT WORKS ? 
+
+A user requests content from your website (e.g.,  https://b16facebook.xyz/  
+
+CloudFront checks if the content is cached at the nearest edge location.
+
+If cached → Delivers content immediately.
+
+If not cached → Fetches content from the origin, caches it, and delivers it.
+
+---
+
+CREATE CF DISTRIBUTION 
+- TRY TO ACCESS IT WITH Distribution domain name
+
+
+UPDATE RECORD IN ROUTE 53 ACCORDINGLY 
+
+==========================================================================
+
+30 JULY 2025
+
+
+AWS WAF is a security service that helps protect your web applications from common web exploits and bots that can affect availability, compromise security, or consume excessive resources
+
+
+Benefits: 
+
+Protects applications from common exploits and bots.
+
+Easily cover recommended security considerations with managed rules.
+
+Customize and fine-tune rules as your needs change.
+
+
+
+Key Features of AWS WAF:
+
+Filter and monitor HTTP/HTTPS requests to your Amazon CloudFront distributions, Application Load Balancers (ALBs), API Gateway APIs, or AWS App Runner services.
+
+Protect against common threats like:
+
+SQL injection (SQLi)
+
+Cross-site scripting (XSS)
+
+Bad bots and scrapers
+
+DDoS attacks 
+
+
+Customizable rules using:
+
+Managed rule groups (pre-configured by AWS or AWS Marketplace partners)
+
+Custom rule groups (built based on your needs)
+
+Geo-match conditions to block or allow based on the request origin
+
+IP reputation lists and IP whitelisting/blacklisting
+
+
+You can attach WAF to:
+
+Amazon CloudFront (for global content delivery)
+
+Application Load Balancer (ALB) (for EC2-hosted web apps)
+
+Amazon API Gateway (for REST and WebSocket APIs)
+
+AWS App Runner (for containerized web apps)
+
+Example Use Cases:
+
+Block requests from specific IPs or countries
+
+Allow only traffic from known good sources
+
+Protect login pages from brute-force attacks
+
+Enforce size limits on requests or headers
+
+
+PRACTILCE :
+
+CREATE IP SET --> CREATE IP SET TO BLOCK YOUR OWN IP 
+
+THEN Create - Web ACL --> configure , add rules , rules groups 
+
+=======================
+
+CLOUD WATCH : 
+
+CONFIGURE ALARM --> Per instance metric on Avg CPU Utilization , Configure SNS notification , configure ALARM action ...etc 
+
+Increase CPU load on Ec2 Instance , then you can observe Alarm getting triggered 
+
+
+
+
+
+
+
+
+===========================================
+TO BE COVERED : 
+
+AWS WAF 
+3 TIER PROJECT 
+
+SESSION MANAGER 
+KMS
+AWS SECRET MANAGER 
+EVENT BRIDGE 
+LAMDA
+API GATEWAY 
+api resource
+TRASIT GATEWAY
+DIRECT CONNECT 
+CLOUD MIGRATION
+COST OPTIMIZATION 
+BACKUP SERVICES 
+
+
+
+
+
+

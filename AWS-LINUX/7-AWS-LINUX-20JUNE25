@@ -1,0 +1,81 @@
+ATE : 20 JUNE 25 
+
+which git
+whereis git 
+ifconfig 
+man
+=======================================
+
+curl vs wget 
+
+# Download a file
+curl -O https://example.com/file.zip
+
+
+# Send a POST request with data
+curl -X POST -d "username=user&password=pass"  https://api.example.com/login
+
+-------
+
+curl -I www.google.com
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=ISO-8859-1
+Content-Security-Policy-Report-Only: object-src 'none';base-uri 'self';script-src 'nonce-WVgteYZWKCo_UBqJfS17xA' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp
+P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+Date: Wed, 24 Jul 2024 02:50:54 GMT
+Server: gws
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+
+-------
+Timeout: 
+
+curl -m 10 https://example.com
+
+==========================================================
+
+
+init --> parent of all process with pid 1 
+
+    init is the very first process to run when a Linux system boots. It's responsible for starting other processes and services that are necessary for the system to function.
+	
+    Controlling Runlevels: init plays a crucial role in managing runlevels, which define the state of the system and the services that are running.
+	
+-------------------------
+runlevels :
+
+In Linux, run levels represent different operating states or modes of the system. 
+
+run levels were used to define the state of the system during system initialization or shutdown
+
+init 0 
+Run Level 0: System Halt/Shut down
+          Terminates all processes and shuts down the system gracefully.
+
+init 1 		
+Run Level 1: Single-user mode { used for recovery} 
+          Only a single user can work on the system, typically used for system maintenance tasks.
+init 2		  
+Run Level 2: Multi-user mode without networking (with out NFS) 
+          Multiple users can work on the system simultaneously, but networking services are not started.
+		  
+Run Level 3: Multi-user mode with networking ( USED MOSTLY FOR SERVER ) 
+           Multiple users can work on the system simultaneously, and networking services (such as TCP/IP networking) are started.
+		   
+Run Level 4: Undefined (often not used).
+           Historically, some distributions used run level 4 for special purposes, but it's generally not standardized and remains unused in many setups.
+		   
+Run Level 5: Graphical mode.
+           Starts the system into a full graphical environment, typically with a display manager like GDM or LightDM.
+		   
+Run Level 6: Reboot.
+          Reboots the system, shutting down all processes and restarting the system.
+
+init 6 
+------------------
+to change run levels use init command 
+
+init 0 
+init 6 
+======================================

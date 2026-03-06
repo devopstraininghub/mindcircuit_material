@@ -1,0 +1,313 @@
+lsblk 
+
+============
+
+============================================================================
+
+df ( disk filesystem)  -
+          It is used to report file system disk space usage, showing how much space is used and available on mounted file systems.
+df -h 
+df -m 
+
+In Windows, drives such as C:, D:, and E: are logical designations assigned to storage devices or partitions. Each drive letter represents a separate filesystem namespace, allowing users and applications to access files and directories on that specific storage unit. 
+
+
+In Linux, the concept of drive letters like C:, D:, and E: does not exist. Instead, Linux uses a single hierarchical directory structure that begins at the root directory (/). All storage devices, partitions, and network filesystems are integrated into this hierarchy by mounting them at specific directories
+
+
+df 
+df -h
+df -m 
+
+=====================================
+
+du -h <foldername/filename>
+
+du -sh 
+
+==================
+change the ownership of files and directories.:
+
+
+chmod (FILE PERMISSIONS) 
+
+The chmod command in Linux is used to change the file permissions. Permissions dictate who can read, write, or execute a file. Here's a comprehensive guide on using the chmod command:
+
+
+There are three types of users:
+
+u – the file owner (user)
+g – the group to which the file belongs
+o – others - everyone else 
+a – all (user, group, and others)
+
+------------------
+change the permissions of a file or directory --  madhu 
+
+owner/user    |  group  | others 
+
+rwx               rwx     rwx 
+
+r - read - 4
+w - write - 2
+x - execute - 1 
+
+
+Modes
+Modes can be specified using symbolic or numeric (octal) notation.
+
+Symbolic Notation
+r – read permission
+w – write permission
+x – execute permission
+
+
+
+Numeric (Octal) Notation
+4 – read permission
+2 – write permission
+1 – execute permission
+
+The numeric mode is a combination of these values. For example:
+
+7 – read, write, and execute (4 + 2 + 1)
+6 – read and write (4 + 2)
+5 – read and execute (4 + 1)
+4 – read only
+
+
+
+
+chmod -R 
+
+
+Make a script executable:
+Secure private SSH keys:
+Set directory to allow access only to owner:
+================================================
+
+What is a Group?
+A group is a collection of users. It helps manage permissions for multiple users efficiently.
+
+Each file in Linux is owned by:
+
+One user (owner)
+
+One group
+
+==========================================
+/etc/passwd	------   Stores user info (usernames, UID, shell, home)
+/etc/group	-------  Lists groups and their members
+/etc/shadow	------    Stores encrypted passwords
+==================================================================
+Shared Directory for Team::
+
+groupadd team
+usermod -aG team madhu
+usermod -aG team kiran
+mkdir /project
+chown root:team /project
+chmod 770 /project
+
+======================================
+
+CHOWN :
+
+change the ownership of files and directories.
+
+FILE & DIRECTORY OWNERSHIP :
+
+The chown command in Linux is used to change the ownership of files and directories. This command allows you to change both the user and group ownership of a file or directory.
+
+chown [options] user[:group] file(s)
+
+1. Change the Owner of a File:
+
+      chown newuser filename
+	  
+2. Change the Group of a File:
+	  
+	  chown :newgroup filename
+
+3.Change Both the Owner and Group of a File:
+     
+	  chown newuser:newgroup filename
+	  
+4. Change the Owner and Group of Multiple Files:
+
+     chown newuser:newgroup file1 file2 file3
+
+
+5.-R – Change ownership recursively for directories and their contents:
+chown -R newuser:newgroup /path/to/directory
+==============================================================
+
+ps --> running processes on a system. It provides a snapshot of the currently active processes, including details like process IDs (PIDs), memory usage, CPU time, and more.
+
+ps -ef 
+Shows processes for all users, not just the current session.
+
+
+ps -ef | grep tomcat 
+
+ps -aux 
+ps -u $USER
+
+====================================
+
+
+
+ps --> running processes on a system. It provides a snapshot of the currently active processes, including details like process IDs (PIDs), memory usage, CPU time, and more.
+
+ps -ef 
+Shows processes for all users, not just the current session.
+
+
+ps -ef | grep tomcat 
+
+ps -aux 
+ps -u $USER
+
+
+===============================================================
+networking commands :
+
+PING 
+---------------------------------
+TELNET 
+
+Telnet is a network protocol and command-line tool used to connect to remote systems or devices over TCP. It lets you manually open a TCP connection to a specific port on a remote host.
+
+   telnet www.google.com 443
+    telnet www.mindcircuit.in 443
+    telnet 100.26.144.255 8080
+   telnet 100.26.144.255 443
+
+------------------------
+NETSTAT 
+
+The netstat command is a networking tool used to display network connections, routing tables, interface statistics, and more.
+  netstat - an 
+
+  netstat -an | grep 8080
+  
+  netstat -tuln
+
+
+
+[root@linux bin]# history
+    1  hostnamectl set-hostname linux
+    2  exit
+    3  df
+    4  df -h
+    5  lsblk
+    6  df -h
+    7  df -m
+    8  cd /opt/
+    9  ll
+   10  vim linuxcommands
+   11  ll
+   12  du -sh linuxcommands
+   13  du
+   14  ll
+   15  yum install tree -y
+   16  tree
+   17  du -sh aws/
+   18  du -h aws/
+   19  du -h --max-depth=1 aws
+   20  du -h --max-depth=2 aws
+   21  ll
+   22  cat /etc/passwd
+   23  useradd madhu
+   24  useradd kiran
+   25  cat /etc/passwd
+   26  cat /etc/groups
+   27  cat /etc/group
+   28  ll
+   29  chmod 760 linuxcommands
+   30  ll
+   31  chmod 714 linuxcommands
+   32  ll
+   33  chmod 402 linuxcommands
+   34  ll
+   35  chmod 777 linuxcommands
+   36  ll
+   37  su - madhu
+   38  ll
+   39  pwd
+   40  ll
+   41  chmod 700 linuxcommands
+   42  ll
+   43  sudo su - madhu
+   44  ll
+   45  chmod 744 linuxcommands
+   46  ll
+   47  sudo su - madhu
+   48  ll
+   49  chown madhu:madhu linuxcommands
+   50  ll
+   51  chmod kiran:madhu linuxcommands
+   52  chown kiran:madhu linuxcommands
+   53  ll
+   54  chown kiran:madhu aws
+   55  ll
+   56  ll aws/
+   57  ll aws/apitools/
+   58  chown -R kiran:madhu aws
+   59  ll aws/
+   60  ll aws/apitools/
+   61  groupadd devops
+   62  cat /etc/groups
+   63  cat /etc/group
+   64  usermod -aG devops madhu
+   65  usermod -aG devops kiran
+   66  cat /etc/groups
+   67  cat /etc/group
+   68  ll
+   69  touch devopscode
+   70  ll
+   71  chmod root:devops devopscode
+   72  chown root:devops devopscode
+   73  ll
+   74  chmod 770 devopscode
+   75  ll
+   76  ps -ef
+   77  wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.106/bin/apache-tomcat-9.0.106.tar.gz
+   78  ll
+   79  tar -xvf apache-tomcat-9.0.106.tar.gz
+   80  ll
+   81  cd apache-tomcat-9.0.106/
+   82  ll
+   83  cd bin/
+   84  ll
+   85  ./startup.sh
+   86  yum install java -y
+   87  java --version
+   88  ll
+   89  ./startup.sh
+   90  ps -ef
+   91  ps -ef | grep tomcat
+   92  ps -ef | grep insta
+   93  ps -ef | grep zoom
+   94  kill -9 28320
+   95  ps -ef | grep tomcat
+   96  ps
+   97  ps -ef
+   98  ps -aux
+   99  ping www.facebook.com
+  100  ping www.facttttebook.com
+  101  ll
+  102  ./startup.sh
+  103  telnet ec2-54-174-7-166.compute-1.amazonaws.com 8080
+  104  yum install telnet
+  105  telnet ec2-54-174-7-166.compute-1.amazonaws.com 8080
+  106  telnet wwww.google.com 443
+  107  telnet www.google.com 443
+  108  netstan -an
+  109  netstat -an
+  110  netstat -an | grep 8080
+  111  ps -ef | grep topmcat
+  112  ps -ef | grep tomcat
+  113  kill -9 28751
+  114  netstat -an | grep 8080
+  115  history

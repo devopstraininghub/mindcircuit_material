@@ -1,0 +1,89 @@
+
+SAMPLE PROMT TO GPT / GROK / ANY TOOL :
+
+Hi , Act as a Resume Builder. 
+My name is Madhu kiran Gorekar , I am a aws devops engineer with 4 years of experience.  Prepare a resume in below format 
+it shoud have below sections : 
+- Career Objective 
+- Professional Summary 
+-  Technical Skills 
+- Professional Experience 
+- Certifications 
+- Education  
+
+ Career Objective section should have my experience.
+ Professional Summary section should be in bullet points with the STAR format. -   Dont provide percentages for every bullet , just add quantifible percentages for only 50-60% of bullet points 
+ Technical Skills  should be with KEY VALUES format 
+ Professional Experience should be similat to Professional Summary - distribute bullet points between  Professional Summary  &  Professional Experience. I have worked in 2 projects , initally in tcs from 2021- june 2023 , then i joined wipro . 
+ 
+ then Certifications - I am a AWS solution architect  followd by Education 
+ My education details are , I am BE from Vasavi college of enginnering , 2010 with 75% 
+ Inter from Aurobindo with 91% 
+ SSC from APSWRJC with 86.3% . 
+ 
+ Make it ATS Friendly resume .
+I am providing keywords here - prepare resume accordingly .
+
+
+keywords:
+Linux Administraion 
+Windows
+Jenkins 
+Maven 
+Ansible 
+Docker 
+Kubetnetes 
+Terraform 
+ArgoCD 
+Prometheus 
+Grafana 
+Nagios 
+CICD 
+SonarQube 
+Image Scan - Trivy 
+Shell / bash Scripting 
+Python Scripting 
+SERVICE NOW,
+JIRA 
+Git & 
+GIT  Branching Strategy supports agile based microservices developement 
+
+AWS Services -- EC2, ASG , ELB , EBS , EFS , S3, LAMDA, CloudWatch, RDS, SNS, CloudFront, Route53 ,IAM, AMI,  EKS, VPC , WAF, CDN   ..etc
+
+Excelent Communication skills & Documentation skills 
+
+- Shift left -  Reducing some percentage of defects in qa and prod 
+- DevSecOps : Reducing security related issues in some percentage 
+- Build once and Run anywhere: improved build process with more reliability 
+- GIT  Branching Strategy - supports agile based microservices developement 
+- Infra as a code : developed modules to achive consistent infra, useed workspaces for multiple environments 
+-Managed infrastructure as code (IaC) using  Terraform to ensure consistency across environments.
+- Project Onboarding 
+- Project Maintenance 
+- Project improvemetns 
+- Project changes 
+- Project Upgrades 
+- Designed and implemented cicd for applications ,ensured high availability, scalability, and security for cloud-based environments with zero downtime 
+- Implemented security best practices 
+- Followd Docker image optimization with multi stage docker file 
+- Micro services Implemented 
+- streamlined project workflows, setup ci cd ,  Deployment strategie ( blue -green ) 
+- production support / on call support 
+- DOCUMENTAION on Confluence 
+- DevSecOps 
+- Strong problem-solving skills with a focus on cost reduction, security improvements, and workflow optimization. Proficient in managing environments such as Dev, QA, UAT, and Production to ensure reliable deployments and smooth operations.
+
+- Ensured operational continuity by conducting regular daily and weekly system checks and backups, leading to a 100% up-time and data integrity across critical systems
+- Fully Automated build & deployment using Jenkins to reduce human error,  Creating CI/CD pipelines by integrating Git, GitHub, 
+Jenkins, Ansible, Docker, Kubernetes - speed up production process.
+
+- provisioned AWS Cloud Infra structure using Terraform , configured using Ansible 
+- Cloud Migration 
+- Experinece with both on prem and cloud platforms 
+- Strong experienced in Linux administration, 
+- Design , setup and maintain observability solutions 
+- Led successful migration of On Premises infra to AWS Cloud , ensuring minimal downtime
+
+
+==========================================================================================================================================
+===========================================================================================================================================

@@ -1,0 +1,1230 @@
+
+date : 19 sep 2025
+
+Docker :
+Docker is a containerization tool that allows you to package an application along with all its dependencies (code, libraries, runtime, system tools) into a single unit.
+
+It helps create, deploy, and run applications consistently across different environments.
+
+Docker is lightweight, portable, and open-source.
+
+======================
+What is a Docker Image?
+
+A Docker image is a read-only template used to create containers.
+
+It includes: 
+   Application code   
+   Runtime (e.g., Java, Python)   
+   Libraries and dependencies   
+   Configuration files
+   
+Images are static and can be stored in registries (like Docker Hub / ECR / GCR ..) 
+======================
+What is a Docker Container?
+
+     A Docker container is a running instance of a Docker image.     
+     It is lightweight and isolated, but shares the host OS kernel.     
+     A container includes everything needed to run the application, providing consistency across environments.
+	 
+======================	 
+	 
+4. Docker Architecture
+
+Docker architecture consists of these key components:
+
+      Docker Client – Command-line interface to communicate with Docker.
+      
+      Docker Daemon – Background service that manages containers and images.
+      
+      Docker Images – Read-only templates to create containers.
+      
+      Docker Containers – Running instances of images.
+      
+      Docker Registry – Stores and distributes Docker images (e.g., Docker Hub).
+
+
+====================================
+
+
+docker -v  
+docker --version  
+docker info  
+docker images  
+docker pull <iname>  
+docker run amazonlinx -- container will be created and exited immediately
+  
+docker run -it <iid/imagename> --- enters into container  
+docker run -it --name <contname> <iid/imagename> 
+exit  --> container gets stoped 
+ctrl + p + q 
+============
+
+
+
+docker ps  -a 
+docker ps ( only running containers )  
+docker start cid/cname
+docker stop cid/cname
+docker pause cid/cname
+docker unpause cid/cname
+
+docker rm cid/cname
+
+docker rm -f cid/cname
+
+=============================================
+
+docker attach cid --> 
+This command attaches your terminal to the running container’s primary process (PID 1). 
+It connects you to the standard input (STDIN), output (STDOUT), and error (STDERR) 
+It doesn’t start a new process or give you a shell by default. 
+
+
+docker exec -it <cid/cname> /bin/bash  
+
+This command executes a new process (/bin/bash, a shell) inside the running container and 
+connects your terminal to it interactively 
+Starts a new shell session inside the container, independent of the main process. 
+
+
+====================================================
+docker rmi iid  
+docker rmi iid  --force  
+docker rmi -f iid   
+
+========================================
+docker run -itd <iid/imagename>  ----------------- 
+docker commit <cid> 
+docker tag iid <reponame>:<tag> 
+
+docekr rm $(docker ps -aq)  
+docker rmi $(docker images -q)  ------ 
+
+======================
+
+DATE : 22 SEP 25 (MONDAY) 
+
+
+docker hub account creation  
+ 
+creation of Image repo in your DH account  
+ 
+docker image push to  - Image repo in your DH account  
+
+
+docker push devopshubg333/batch16d:tagname
+
+
+docker pull devopshubg333/batch16d:gitjava
+
+
+   docker login  --> usernaem & password
+   26  docker images
+   27  docker push amazonlinux:gitjava
+   28  docker tag efc3ea850076 devopshubg333/batch16d:gitjava
+   29  docker images
+   30  docker push devopshubg333/batch16d:gitjava
+
+ 
+======================================= 
+A SMPLE HTTPD WEB APPLICATION SET UP :
+
+MANULLY :
+
+httpd : 80 
+yum install httpd -y 
+systemctl start httpd 
+cd /var/www/html  ----> index.html 
+IP:80 
+====================
+
+DOCKERIZING APPLICATION: 
+ 
+port maping /port forwards  
+ 
+docker run -it --name <contname> -p HP:CP amazonlinux  
+ 
+docker run -it --name fb_httpd_cont2 -p 8081:80 amazonlinux 
+ 
+yum install httpd -y  
+cd /usr/sbin/ 
+./httpd  
+cd /var/www/html/ 
+yum install vim -y  
+vim index.html  
+==============================================
+docker cp src dest  
+docker cp index.html fb_httpd_cont2:/var/www/html/index.html 
+Successfully copied 77.8kB to fb_httpd_cont2:/var/www/html/index.html 
+
+======================
+
+1  docker -v
+    2  docker --version
+    3  systemctl status docker
+    4  systemctl enable docker
+    5  docker images
+    6  docker ps -a
+    7  docker ps -qa
+    8  docker rm -f $(docker ps -qa)
+    9  docker rmi $(docker images -q)
+   10  docker images
+   11  docker run --name cont1 amazonlix
+   12  docker run --name cont1 amazonlinux
+   13  docker ps -a
+   14  docker run -it --name cont1 amazonlinux
+   15  docker run -it --name cont2 amazonlinux
+   16  docker ps -a
+   17  docker ps
+   18  docker exec -it cont2 /bin/bash
+   19  docker ps
+   20  docker commit cont2
+   21  docker images
+   22  docker tag efc3ea850076 amazonlinux:gitjava
+   23  docker images
+   24  docker push amazonlinux:gitjava
+   25  docker login
+   26  docker images
+   27  docker push amazonlinux:gitjava
+   28  docker tag efc3ea850076 devopshubg333/batch16d:gitjava
+   29  docker images
+   30  docker push devopshubg333/batch16d:gitjava
+   31  history
+   32  docker ps
+   33  docker run -itd --name cont3 amazonlinux
+   34  docker ps
+   35  docker run -itd --name cont4 amazonlinux sleep 15
+   36  docker ps -a
+   37  docker run -it --name cont5 amazonlinux sleep 15
+   38  docker ps -a
+   39  docker run -it --name cont5 amazonlinux ping www.google.com
+   40  docker run -it --name cont6 amazonlinux ping www.google.com
+   41  docker ps -a
+   42  yum install httpd -y
+   43  systemctl start httpd
+   44  cd /var/www/html/
+   45  ll
+   46  vim index.html
+   47  cat index.html
+   48  vim index.html
+   49  l
+   50  LL
+   51  ll
+   52  docker ps -a
+   53  docker rm -f (docker ps -aq)
+   54  docker rm -f $(docker ps -aq)
+   55  ll
+   56  cd /
+   57  cd /opt/
+   58  ll
+   59  docker run -it --name fb_cont amazonlinux
+   60  docker ps
+   61  docker run -it --name fb_cont2 -p 8082:80  amazonlinux
+   62  docker ps
+   63  ll
+   64  touch index.html
+   65  ll
+   66  vim index.html
+   67  ll
+   68  docker ps
+   69  docker cp index.html fb_cont2:/var/www/html/index.html
+   70  docker commit fb_cont2
+   71  docker images
+   72  docker tag 05c62ead1c6d devopshubg333/batch16d:httpd_fb
+   73  docker images
+   74  docker push devopshubg333/batch16d:httpd_fb
+   75  docker rm -f $(docker ps -qa)
+   76  docker rmi $(docker images)
+   77  docker images
+   78  docker rmi $(docker images -q)
+   79  docker rmi $(docker images -q) --force
+   80  docker images
+   81  docker ps -aq
+   82  ll
+   83  rm -rf *
+   84  ll
+   85  docker pull devopshubg333/batch16d:httpd_fb
+   86  docker images
+   87  docker run -itd --name fbcont_b16d -p 8090:80 devopshubg333/batch16d:httpd_fb
+   88  docker ps -a
+   89  docker exec fbcont_b16d /bin/bash
+   90  docker exec -it fbcont_b16d /bin/bash
+   91  history
+================================================================================================================================
+=================================
+23 SEP 25 :
+
+
+
+docker history imagename:tag
+
+
+docker logs cid 
+docker logs -f cont-id
+docker logs --tail 100 cont-id
+docker logs --since 10m cont-id
+
+------------------
+
+docker home path --> /var/lib/docker 
+---------
+
+Docker Container - ephemeral nature : 
+
+Docker containers are ephemeral by design, meaning they are temporary and stateless. Once a container stops or is deleted, any data or changes made inside it during its runtime are lost unless explicitly preserved 
+
+DOCKER VOLUMES  
+docker volume create my_volume 
+docker run -d -v my_volume:/container/path   my_image 
+
+
+Usage:  docker volume COMMAND
+
+Manage volumes
+
+Commands:
+  create      Create a volume
+  inspect     Display detailed information on one or more volumes
+  ls          List volumes
+  prune       Remove unused local volumes
+  rm          Remove one or more volumes
+  update      Update a volume (cluster volumes only)
+
+--------------------------------- 
+BIND MOUNTS  
+docker run -v /host/path:/container/path my-image 
+docker run -it --name cont2 -v /opt:/opt/logs iname 
+
+============================================
+
+24 sep 25:
+
+
+=============================================== 
+Docker file :  
+how to build --? 
+docker build -t <devopshubg333/batch16d:tag> . ---------------------------------------- 
+
+
+FROM amazonlinux:latest
+RUN yum install httpd -y
+COPY index.html /var/www/html/index.html
+CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
+EXPOSE 80
+
+
+
+----------------- 
+docker run -it -p 8090:80 --name cont1 iid  
+
+
+docker 
+========================================================================= 
+Dockerizing sample python web-application : 
+====== 
+Code : /opt/app.py 
+
+import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def main():
+    return "Welcome to Batch16d!"
+
+@app.route("/how are you")
+def hello():
+    return "I am good, how about you?"
+
+if __name__ == "__main__":
+    app.run()
+
+
+
+
+
+============== 
+Commands : 
+
+
+yum update -y 
+yum install python3 python3-pip pip -y 
+pip install flask 
+FLASK_APP=/opt/python_webapp/app.py flask run --host=0.0.0.0 --port=8080 
+
+
+Dockerfile
+
+FROM amazonlinux:latest 
+LABEL maintainer="MADHU KIRAN <devopstraininghub@gmail.com>" 
+RUN yum update -y 
+RUN yum install python3 python3-pip pip -y 
+RUN pip install flask
+COPY app.py /opt/python_webapp/app.py
+CMD FLASK_APP=/opt/python_webapp/app.py flask run --host=0.0.0.0 --port=8080
+EXPOSE 8080
+
+
+
+======================================= 
+docker system prune 
+docker container prune 
+docker image prune 
+docker volume prune  
+
+===============================
+ systemctl status docker
+   16  docker images
+   17  docker ps -a
+   18  cd /opt/
+   19  ll
+   20  mkdir httpd_fb_app
+   21  ll
+   22  cd httpd_fb_app/
+   23  ll
+   24  vim Dockerfile
+   25  cat Dockerfile
+   26  docker build -t testimg:v1 -f Dockerfile .
+   27  vim Dockerfile
+   28  docker build -t testimg:v1 -f Dockerfile .
+   29  ll
+   30  vim index.html
+   31  docker build -t testimg:v1 -f Dockerfile .
+   32  docker images
+   33  ll
+   34  docker run -it --name fb_ct1 -p 8081:80 testimg:v1
+   35  docekr ps -a
+   36  docker ps -a
+   37  top
+   38  ll
+   39  vim Dockerfile
+   40  docker build -t testimg:v1 -f Dockerfile .
+   41  docker images
+   42  docker run -it --name fb_ct2 -p 8081:80 testimg:v1
+   43  ll
+   44  vim index.html
+   45  docker build -t devopshubg333/batch16d:fb_httpd -f Dockerfile .
+   46  docker images
+   47  docker run -itd --name fbcont -p 8083:80 devopshubg333/batch16d:fb_httpd
+   48  docker login
+   49  docker push devopshubg333/batch16d:fb_http
+   50  docker push devopshubg333/batch16d:fb_httpd
+   51  ll
+   52  cat Dockerfile
+   53  rm -rf *
+   54  ll
+   55  docker images
+   56  docker rm -f $(docker ps -aq)
+   57  docker rmi -f $(docker images -q)
+   58  docker images
+   59  ll
+   60  docker run -itd -p 8089:80 --name fb devopshubg333/batch16d:fb_httpd
+   61  docker images
+   62  docker histroy
+   63  docker histroy devopshubg333/batch16d:fb_httpd
+   64  docker history devopshubg333/batch16d:fb_httpd
+   65  ll
+   66  cd ../
+   67  ll
+   68  mkdir python_webapp
+   69  ll
+   70  cd python_webapp/
+   71  ll
+   72  vim app.py
+   73  yum update -y
+   74  yum install python3 python3-pip pip -y
+   75  pip install flask
+   76  pwd
+   77  FLASK_APP=/opt/python_webapp/app.py flask run --host=0.0.0.0 --port=8080
+   78  vim app.py
+   79  FLASK_APP=/opt/python_webapp/app.py flask run --host=0.0.0.0 --port=8080
+   80  ll
+   81  vim app.py
+   82  FLASK_APP=/opt/python_webapp/app.py flask run --host=0.0.0.0 --port=8080
+   83  vim app.py
+   84  FLASK_APP=/opt/python_webapp/app.py flask run --host=0.0.0.0 --port=8080
+   85  ll
+   86  rm -rf __pycache__/
+   87  ll
+   88  vim Dockerfile
+   89  docker build -t pythonimg:v1 -f Dockerfile .
+   90  docker images
+   91  docker run -itd --name pycont1 -p 8090:8080 pythonimg:v1
+   92  docker run -it --name pycont1 -p 8091:8080 pythonimg:v1
+   93  docker run -it --name pycon2 -p 8091:8080 pythonimg:v1
+   94  ll
+   95  vim Dockerfile
+   96  docker build -t pythonimg:v1 -f Dockerfile .
+   97  docker images
+   98  docker run -it --name pycon3 -p 8091:8080 pythonimg:v1
+   99  docker images
+  100  ll
+  101  docker tag 45bd840bcad3  devopshubg333/batch16d:pythonimg
+  102  docker images
+  103  docker push devopshubg333/batch16d:pythonimg
+  104  docker images
+  105  docker hisotry 45bd840bcad3
+  106  docker history 45bd840bcad3
+  107  docker images
+  108  docker ps -a
+  109  docker images
+  110  docker volume ls
+  111  docker prune system
+  112  docker system prune
+  113  docker image prune
+  114  docker container prune
+  115  docker system prune
+  116  docker ps
+  117  docker ps -a
+  118  docker images
+  119  docker volume help
+  120  docker volume test
+  121  docker volume create test
+  122  docker volume create prod
+  123  docker volume prune
+  124  docker volume ls
+  125  history
+  126  docker volume help
+  127  history
+============================================================================
+25 SEP 25 
+
+
+
+-----------------------------------------------
+
+All these days amazonlinux 
+
+use other images as well like ubuntu, centos ...etc 
+
+export PS1='\u@\h# '
+
+
+docker run -it -h <hostname>  iname 
+
+-----------------------------------------------
+FROM ubuntu:20.04
+LABEL maintainer="MADHU KIRAN <devopstraininghub@gmail.com>" 
+RUN apt-get update -y 
+RUN apt-get install python3 python3-pip pip -y 
+RUN pip install flask
+COPY app.py /opt/python_webapp/app.py
+CMD FLASK_APP=/opt/python_webapp/app.py flask run --host=0.0.0.0 --port=8080
+EXPOSE 8080
+
+----------------------------------------------
+# Use an official lightweight Python image
+FROM python:3.11-slim
+LABEL maintainer="MADHU KIRAN <devopstraininghub@gmail.com>"
+
+# Set working directory
+WORKDIR /opt/python_webapp
+
+# Copy the application code
+COPY app.py .
+
+# Install Flask
+RUN pip install --no-cache-dir flask
+
+# Expose the port your app runs on
+EXPOSE 8080
+
+# Run the application
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
+
+----------------------------------------------
+
+DOCKERFILE DEEP DIVE
+
+FROM
+RUN
+COPY
+CMD
+EXPOSE 
+
+ADD 
+
+-----------
+WORKDIR 
+ADD 
+COPY VS ADD 
+----------
+ENTRYPOINT 
+CMD VS ENTRYPOINT 
+
+===========
+Dockerfile Instructions Simplified
+
+RUN
+
+    Executes commands while building the image.    
+    Creates a new image layer.    
+    Commonly used to install software packages
+	it is basically during Image Building
+
+CMD
+    DURING CONTAINER CREATIING  -
+    Sets the default command when the container starts.    
+    Can be overridden by arguments passed to docker run.    
+
+
+ENTRYPOINT
+      
+      Configures the container to run as an executable.      
+      Cannot be fully overridden, but command-line arguments are appended.
+	  GIven High priority 
+
+
+
+==================================
+TOMCAT SETUP 
+
+
+FROM amazonlinux
+LABEL maintainer="MADHU KIRAN <devopstraininghub@gmail.com>" 
+RUN yum install java -y && yum install gzip tar -y 
+WORKDIR /opt/tomcat
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.109/bin/apache-tomcat-9.0.109.tar.gz .
+RUN tar -xvf apache-tomcat-9.0.109.tar.gz && rm -rf apache-tomcat-9.0.109.tar.gz
+
+RUN sed -i 's/"127\\.\\d+\\.\\d+\\.\\d+|::1|0:0:0:0:0:0:0:1"/".*"/g' /opt/tomcat/apache-tomcat-9.0.109/webapps/manager/META-INF/context.xml
+
+WORKDIR /opt/tomcat/apache-tomcat-9.0.109/conf
+
+RUN rm -rf tomcat-users.xml
+
+RUN echo '<?xml version="1.0" encoding="utf-8"?> \
+        <tomcat-users>  \
+        <role rolename="manager-gui"/> \
+        <user username="tomcat" password="tomcat" roles="manager-gui, manager-script, manager-status"/> \
+        </tomcat-users>' > tomcat-users.xml
+
+CMD ["/opt/tomcat/apache-tomcat-9.0.109/bin/catalina.sh" , "run"]
+EXPOSE 8080
+
+====================================
+
+
+===============================================================================================================================================================================
+
+26 SEP 2025 
+
+
+jenkins:
+
+httpd 
+tomcat 
+maven 
+jenkins 
+
+
+==============
+
+pipeline {
+
+    agent any
+	
+	tools { 	
+	maven 'Maven_3.9.11'
+		
+	}
+	
+    stages {
+	
+        stage('CLONE SCM') {
+            steps {
+                echo 'This stage clones SC from GIT repo'				
+				git branch: 'main', url: 'https://github.com/devopstraininghub/mindcircuit16d.git'
+            }
+        }
+		
+        stage('Build Artifact') {
+            steps {
+                echo 'This stage builds the code using maven'
+				sh 'mvn clean install'			
+				
+            }
+        }
+		
+        stage('Deploy to Tomcat') {
+            steps {
+                echo 'This stage deploys .war to tomcat webserver'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat', path: '', url: 'http://3.89.99.201:8082/')], contextPath: 'mindcircuit16d', war: '**/*.war'
+            }
+        }		
+		
+    }
+}
+
+======================================
+
+
+FROM maven AS buildstage 
+RUN mkdir /opt/mindcircuit16d
+WORKDIR /opt/mindcircuit16d
+COPY . .
+mvn clean install 
+
+
+FROM tomcat 
+WORKDIR webapps
+COPY --from=buildstage /opt/mindcircuit16d/target/*.war .
+RUN rm -rf ROOT && mv *.war ROOT.war
+EXPOSE 8080
+
+=========================
+
+
+
+DATE: 30 SEP 25 
+
+udo usermod -aG docker ec2-user 
+sudo usermod -aG docker ubuntu 
+
+
+
+calculator.go  
+========= 
+
+ 
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+func main() {
+	fmt.Println("HELLO BATCH16d AWS DEVOPS CHAMPS, I am a calculator app ....")
+
+	for {
+		// Read input from the user
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("Enter any calculation (Example: 1 + 2 OR 2 * 5) \n(Type 'exit' to quit): ")
+		text, _ := reader.ReadString('\n')
+
+		// Trim the newline character from the input
+		text = strings.TrimSpace(text)
+
+		// Check if the user entered "exit" to quit the program
+		if text == "exit" {
+			fmt.Println("Exiting... Goodbye! 👋")
+			break
+		}
+
+		// Split the input into three parts: left operand, operator, right operand
+		parts := strings.Split(text, " ")
+		if len(parts) != 3 {
+			fmt.Println("Invalid input. Try again. (Example: 3 + 4)")
+			continue
+		}
+
+		// Convert the operands to integers
+		left, err := strconv.Atoi(parts[0])
+		if err != nil {
+			fmt.Println("Invalid number:", parts[0])
+			continue
+		}
+		right, err := strconv.Atoi(parts[2])
+		if err != nil {
+			fmt.Println("Invalid number:", parts[2])
+			continue
+		}
+
+		// Perform the calculation based on the operator
+		var result int
+		switch parts[1] {
+		case "+":
+			result = left + right
+		case "-":
+			result = left - right
+		case "*":
+			result = left * right
+		case "/":
+			if right == 0 {
+				fmt.Println("Error: Division by zero is not allowed.")
+				continue
+			}
+			result = left / right
+		default:
+			fmt.Println("Invalid operator. Use +, -, *, or /")
+			continue
+		}
+
+		// Print the result
+		fmt.Printf("Result: %d\n", result)
+	}
+}
+
+ 
+ 
+ 
+===================== 
+STEPS: 
+ 
+yum update  
+yum install -y go 
+GO111MODULE=off 
+go build calculator.go 
+====================================== 
+[root@ip-172-31-40-108 opt]# cat Dockerfile.calculator 
+ 
+FROM amazonlinux
+RUN yum update  && \
+    yum install -y go
+ENV GO111MODULE=off
+WORKDIR /opt
+COPY . .
+RUN go build calculator.go
+CMD ["/opt/calculator"]
+
+********************************************************************** 
+[root@ip-172-31-40-108 opt]# cat Dockerfile.ubuntu 
+
+FROM ubuntu 
+RUN apt-get update && apt-get install -y golang-go 
+ENV GO111MODULE=off 
+WORKDIR /opt/calculatorapp 
+COPY . . 
+RUN go build calculator.go 
+ENTRYPOINT ["/opt/calculatorapp/calculator"] 
+================================================== 
+[root@ip-172-31-40-108 opt]# cat Dockerfile-multistage 
+
+
+FROM amazonlinux AS buildstage
+RUN yum update  && \
+    yum install -y go
+ENV GO111MODULE=off
+WORKDIR /opt
+COPY . .
+RUN go build calculator.go
+
+
+
+FROM scratch
+COPY --from=buildstage  /opt/calculator /opt/calculator
+ENTRYPOINT ["/opt/calculator"]
+
+
+
+------------------------------------------------------------------------------
+
+------------------------------------------- 
+Ref URLS : 
+https://docs.docker.com/build/building/multi-stage/ 
+https://devopscube.com/reduce-docker-image-size/ 
+======================================================================= 
+
+
+
+DOCKER NETWORKING :
+
+IP address
+NIC / ethernet
+NETWORK - (VPC IN AWS TERMINOLOGY )  
+SUBNET
+
+======================================
+
+bridge
+host 
+none 
+overlay 
+
+docker network list /ls 
+docker network inspect bridge 
+
+docker network create --subnet 10.81.0.0/16 batch16nw
+
+docker run -it --name ct33 --network batch16nw --ip 10.81.3.33 ubuntu
+
+docker run -it --name hostnwtct --network host ubuntu
+
+docker run -itd --net batch16nw --ip 10.81.0.20 <iname> 
+
+
+docker network rm batch16nw 
+
+  docker network ls
+   45  docker network inspect bridge
+   46  docker network create ---subnet 10.81.0.0/16 batch16nw
+   47  docker network create --subnet 10.81.0.0/16 batch15nw
+   48  docke network ls
+   49  docker network ls
+   50  docker run -it --name ct33 --network batch15nw --ip 10.81.3.33 ubuntu
+   51  docker ps -a
+   52  docker rm -f $(docker ps -qa)
+   53  docker network ls
+   54  docker network rm batch15nw
+   55  docker network rm bridge
+   56  cd /opt/
+   57  ll
+   58  cd calculatorapp/
+   59  ll
+   60  docker ps -a
+   61  docker network ls
+   62  docker network inspect bridge
+   63  docker network ls
+   64  docker network create test
+   65  docker network ls
+   66  docker network inspect test
+   67  docker network ls
+   68  docker run -itd --name tct1 --network test ubuntu
+   69  docker run -it --name tct2 --network test ubuntu
+   70  docker network create --subnet 10.81.0.0/16  prod
+   71  docker network ls
+   72  docker network inspect prod
+   73  docker network ls
+   74  docker run -it --name pct1 --network prod  ubuntu
+   75  docker run -it --name pct3 --network prod --ip 10.82.3.33  ubuntu
+   76  docker run -it --name pct3 --network prod --ip 10.81.3.33 ubuntu
+   77  docker netowork ls
+   78  docker network ls
+   79  docker inspect network prod
+   80  docker network ls
+   81  docker network rm prod
+   82  docker rm -f $(docker ps -qa)
+   83  docker network rm prod
+   84  docker network rm test
+   85  docker network ls
+   86  docker network rm bridge
+   87  docker run -it --name hct1 --network host ubuntu
+
+
+==========================================================
+=======================================================================
+
+1 OCT 25:
+
+SonarQube is a popular open-source platform used for continuous inspection of code quality. It helps developers detect bugs, code smells, and security vulnerabilities in their code before it goes to production.
+
+Purpose of SonarQube
+
+     Code Quality Management: Ensures code follows best practices.
+     
+     Bug Detection: Finds potential runtime errors early.
+     
+     Maintainability: Detects “code smells,” which are parts of the code that are poorly written or hard to maintain.
+     
+     Security: Identifies vulnerabilities to prevent security issues.
+     
+     Technical Debt Tracking: Shows how much “debt” your code has (i.e., areas that need refactoring).
+	 
+	 
+Key Features
+
+       Multi-language Support: Works with Java, C#, JavaScript, Python, PHP, and many more.
+       
+       Static Code Analysis: Examines code without running it.
+       
+       Automated Reports: Generates dashboards and reports to visualize code quality.
+       
+       Integration: Works with CI/CD tools like Jenkins, GitHub Actions, GitLab CI, etc.
+       
+       Custom Rules: Allows you to define coding rules specific to your project or organization.
+	   
+	   Analyze for Issues: It checks for:
+
+         Bugs, Vulnerabilities, Code smells, Duplicated code, Complexity
+		 
+		 
+SONARQUBE  - SCA  - 9000 
+ 
+ 
+
+ IMAGE
+ 
+
+ 
+ 
+ 
+ ========================================================================================
+Ubuntu:  
+ 
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+ 
+=========== 
+ docker pull sonarqube
+ 
+ docker run -itd --name soanr_ct -p 9000:9000 sonar
+ ===========================
+
+to build code :
+mvn clean install 
+
+
+to scan code: 
+mvn sonar:sonar 
+     http://3.80.201.136:9000/
+
+     token:  squ_ec23fffbc704f6a3530e15c00412e8d4ddc39d8b
+
+----------------
+
+mvn sonar:sonar -Dsonar.host.url=http://3.80.201.136:9000/ sonar.login=squ_ec23fffbc704f6a3530e15c00412e8d4ddc39d8b
+
+===============
+
+=============================== 
+jenkins on ubuntu:
+
+
+sudo apt update 
+sudo apt install -y openjdk-17-jdk 
+java -version 
+
+
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt update
+sudo apt install jenkins -y
+
+
+sudo systemctl start jenkins 
+sudo systemctl enable jenkins 
+
+
+=====================
+
+pipeline with sonar:
+
+pipeline {
+
+    agent any
+	
+	tools {
+	maven 'Maven_3.9.11'
+	}
+	
+    stages {
+	
+        stage('CLONE SCM') {
+            steps {
+                echo 'This stage clones SC from GIT repo'				
+				git branch: 'main', url: 'https://github.com/devopstraininghub/mindcircuit16d.git'
+            }
+        }
+		
+		
+		stage('sonarqube scan') {
+            steps {
+                echo 'This stage scans the code using sonarqube'
+                sh 'ls -ltrh'
+                
+                sh ''' mvn sonar:sonar \\
+                      -Dsonar.host.url=http://3.80.201.136:9000 \\
+                      -Dsonar.login=squ_ec23fffbc704f6a3530e15c00412e8d4ddc39d8b'''
+            }
+    	}		
+		
+        stage('Build Artifact') {
+            steps {
+                echo 'This stage builds the code using maven'
+				sh 'mvn clean install'			
+				
+            }
+        }
+		
+        stage('Deploy to Tomcat') {
+            steps {
+                echo 'This stage deploys .war to tomcat webserver'
+         //       deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat', path: '', url: 'http://44.223.26.72:8090/')], contextPath: 'MC-APP', war: '**/*.war'
+            }
+        }		
+		
+    }
+}
+
+==================================================================================
+
+6 OCT 25  
+
+TRIVY :
+https://github.com/aquasecurity/trivy/
+
+rpm -ivh https://github.com/aquasecurity/trivy/releases/download/v0.67.0/trivy_0.67.0_Linux-64bit.rpm
+
+IMAGE SCANNING using TRIVY 
+
+Trivy is an open-source vulnerability and security scanner created by Aqua Security.
+
+CVE = Common Vulnerabilities and Exposures
+ - Scans for vulnerabilities (CVEs) in   
+  
+            Container images (Docker, OCI)          
+            File systems and directories          
+            Git repositories          
+            Infrastructure as Code (IaC) (Terraform, Kubernetes manifests, Helm charts)                
+            Cloud environments
+  
+ - Detects misconfigurations and sensitive information (secrets, tokens, passwords) in code.
+  
+ - Supports CVE databases (like NVD, GitHub Security Advisories) and can be updated frequently.
+ 
+ 
+ 
+ WGET --> download --> bin / start 
+ 
+ sonarqube --> docker 
+ 
+ RPM : 
+
+  rpm -ivh 
+
+  rpm - Uvh 
+-------------------------------
+ PIPELINE INTEGRATING TRIVY :
+ 
+ pipeline {
+
+    agent any
+	
+	tools {
+	maven 'Maven_3.9.11'
+	}
+	
+    stages {
+	
+        stage('CLONE SCM') {
+            steps {
+                echo 'This stage clones SC from GIT repo'				
+				git branch: 'main', url: 'https://github.com/devopstraininghub/mindcircuit16d.git'
+            }
+        }
+		
+		
+		stage('sonarqube scan') {
+            steps {
+                echo 'This stage scans the code using sonarqube'
+                sh 'ls -ltrh'
+                
+                sh ''' mvn sonar:sonar \\
+                      -Dsonar.host.url=http://3.80.201.136:9000 \\
+                      -Dsonar.login=squ_ec23fffbc704f6a3530e15c00412e8d4ddc39d8b'''
+            }
+    	}		
+		
+        stage('Build Artifact') {
+            steps {
+                echo 'This stage builds the code using maven'
+				sh 'mvn clean install'			
+				
+            }
+        }
+		
+        stage('DOCKER IMAGE BUILD') {
+            steps {
+                echo 'This stage deploys .war to tomcat webserver'
+                 //  docker build -t <imgname:tag> -f Dockerfile .
+            }
+        }		
+		
+		
+	  stage('trivy Scan') {
+            steps {
+                echo 'This stage deploys .war to tomcat webserver'
+                 // trivy image <imgname:tag>
+            }
+        }	
+		
+	   stage('push to Dockerhub') {
+            steps {
+                echo 'This stage deploys .war to tomcat webserver'
+                 // docker login
+				  //  docker push 
+            }
+        }	
+		
+		
+    }
+}
+
+
+============================================================================================================================
+
+
+7 OCT 2025:
+
+ 
+Docker compose Installation :
+
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+
+sudo chmod +x /usr/local/bin/docker-compose 
+
+docker-compose version 
+ 
+================== 
+docker-compose.yml 
+
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: wordpress_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress_app
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+
+volumes:
+  db_data:
+  wordpress_data:
+
+
+==========================================
+
+  docker-compose up -d 
+  docker-compose down --volumes 
+
+
+=====================
+sudo usermod -a -G docker $USER
+
+
+
+
+
+
